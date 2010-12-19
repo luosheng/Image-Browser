@@ -17,6 +17,6 @@
 
 @property (nonatomic, retain) NSArray *imagePaths;
 
-- (id)initWithimagePaths:(NSArray *)imagePaths;
+- (id)initWithImagePaths:(NSArray *)imagePaths;
 
 @end

@@ -22,7 +22,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
   application.statusBarStyle = UIStatusBarStyleBlackTranslucent;
   
   NSArray *imagePaths = [[NSBundle mainBundle] pathsForResourcesOfType:@"jpg" inDirectory:@""];
-  XANThumbsViewController *tvc = [[XANThumbsViewController alloc] initWithimagePaths:imagePaths];
+  XANThumbsViewController *tvc = [[XANThumbsViewController alloc] initWithImagePaths:imagePaths];
   navigationController = [[UINavigationController alloc] initWithRootViewController:tvc];
   [tvc release];
   

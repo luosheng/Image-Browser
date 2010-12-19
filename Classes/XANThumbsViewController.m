@@ -25,7 +25,7 @@
 #pragma mark -
 #pragma mark View lifecycle
 
-- (id)initWithimagePaths:(NSArray *)theimagePaths
+- (id)initWithImagePaths:(NSArray *)theimagePaths
 {
   if (self = [super initWithStyle:UITableViewStylePlain]){
     imagePaths = [theimagePaths retain];
