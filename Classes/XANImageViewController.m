@@ -143,6 +143,13 @@
   CGRect visibleBounds = pagingScrollView.bounds;
   currentImageIndex = floorf(CGRectGetMinX(visibleBounds) / CGRectGetWidth(visibleBounds));
   currentImageIndex = MAX(currentImageIndex, 0);
+  
+  if (currentImageIndex == 0) prevItem.enabled = NO;
+  else if (currentImageIndex == [imagePaths count] - 1) nextItem.enabled = NO;
+  else if ([imagePaths count] > 1) {
+    nextItem.enabled = YES;
+    prevItem.enabled = YES;
+  }
 }
 
 #pragma mark privates
