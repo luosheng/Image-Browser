@@ -12,7 +12,7 @@
 #define TAG_BASE 1000
 
 @interface XANThumbsCell()
-- (CGFloat)firstImageLeftOffset;
+- (CGRect)buttonFrameAtColumn:(NSUInteger)column;
 - (UIButton *)createButtonForColumn:(NSUInteger)column;
 @end
 
@@ -53,10 +53,7 @@
     UIButton *button = (UIButton *)[self.contentView viewWithTag:TAG_BASE+i];
     if (i < numberOfImages){
       if (!button) [self createButtonForColumn:i];
-      else {
-        CGFloat x = [self firstImageLeftOffset] + (kImageSize.width + kSpacing)*i;
-        button.frame = CGRectMake(x, 0, kImageSize.width, kImageSize.height);
-      }
+      else button.frame = [self buttonFrameAtColumn:i];
     } else {
       [button removeFromSuperview];
     }
@@ -84,9 +81,13 @@
 }
 
 #pragma mark privates
-- (CGFloat)firstImageLeftOffset
+- (CGRect)buttonFrameAtColumn:(NSUInteger)column
 {
-  return (self.bounds.size.width - kImageSize.width * capacityOfImages - kSpacing * (capacityOfImages-1)) / 2;
+  CGFloat x = (self.bounds.size.width - kImageSize.width * capacityOfImages - kSpacing * (capacityOfImages-1)) / 2;
+  if (column > 0)
+    x += (kImageSize.width + kSpacing) * column;
+  
+  return CGRectMake(x, 0, kImageSize.width, kImageSize.height);
 }
 
 - (UIButton *)createButtonForColumn:(NSUInteger)column
@@ -96,8 +97,7 @@
   button.layer.borderWidth = 1.0;
   button.layer.borderColor = [UIColor darkGrayColor].CGColor;
   [button addTarget:self action:@selector(didTouchButton:) forControlEvents:UIControlEventTouchUpInside];
-  CGFloat x = [self firstImageLeftOffset] + (kImageSize.width + kSpacing) * column;
-  button.frame = CGRectMake(x, 0, kImageSize.width, kImageSize.height);
+  button.frame = [self buttonFrameAtColumn:column];
   [self.contentView addSubview:button];
 
   return button;

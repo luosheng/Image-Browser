@@ -65,6 +65,7 @@
 {
   [super viewWillAppear:YES];
   self.navigationController.toolbarHidden = YES;
+  [self.tableView reloadData];
   [self updateTableLayout];
 }
 
