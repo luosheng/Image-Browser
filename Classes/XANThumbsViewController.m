@@ -10,6 +10,7 @@
 #import "XANImageViewController.h"
 
 #define ROW_HEIGHT (kImageSize.height + kSpacing)
+#define kStatusBarHeight 20
 
 @interface XANThumbsViewController()
 - (void)updateTableLayout;
@@ -47,7 +48,6 @@
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
   self.tableView.autoresizingMask =
     UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  [self updateTableLayout];
   self.tableView.rowHeight = ROW_HEIGHT;
 
   self.navigationItem.title = @"XANImageBrowser";
@@ -57,14 +57,15 @@
   self.navigationController.navigationBar.translucent
     = self.navigationController.toolbar.translucent
     = YES;
+  
+  [self updateTableLayout];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:YES];
-  [self.tableView reloadData];
-  [self updateTableLayout];
   self.navigationController.toolbarHidden = YES;
+  [self updateTableLayout];
 }
 
 // Override to allow orientations other than the default portrait orientation.
@@ -149,7 +150,7 @@
 - (void)updateTableLayout
 {
   CGFloat barsHeight = 0;
-  if ([UIApplication sharedApplication].statusBarStyle == UIStatusBarStyleBlackTranslucent && self.wantsFullScreenLayout) barsHeight += 20;
+  if (self.wantsFullScreenLayout) barsHeight += kStatusBarHeight;
   if (self.navigationController.navigationBar.translucent) barsHeight += self.navigationController.navigationBar.bounds.size.height;
   self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(barsHeight, 0, 0, 0);
   barsHeight += kSpacing;
